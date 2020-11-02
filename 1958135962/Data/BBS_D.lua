@@ -227,6 +227,17 @@ local bBiasFail = false;
 --		Added Highland script
 --		Included the Resource Gen update
 --		Abundant starts have higher minimum values
+-- 1.4.2	Post CWC Patch
+--		Gaul do not get Harbour check
+--		Fixed some text error
+--		Abundant resources start have higher minimum values
+--		Russia and Canada get further score penalty if they are spawning at the equator or tropics
+--		Rivers score buffs and Lakes reduced
+--		Snow slightly adjusted to pre 1.4 level so Russia/Canada can spawn closer to the edges in Large/Huge maps
+--		Strategic Resources now changeable in SP
+--		Increased score % for resources
+--		Score for resources now will differentiate ring 1 and ring 2 favouring ring 1
+
 
 
 -- Code structure: Code is run right before the first turn starts
@@ -243,7 +254,7 @@ local bBiasFail = false;
 --	Run spawn correction Coastal (failsafe to prevent harbor blocked by reefs) 
 --	Run Choke point analysis (prevent crashes)
 
-g_version = "1.41"
+g_version = "1.42"
 
 -----------------------------------------------------------------------------
 function __Debug(...)
@@ -260,6 +271,7 @@ function Init_D_Balance()
 	print ("---------------------------------------------------------");
 	print ("------------- BBS Script v"..g_version.." -D- Init -------------");
 	print ("---------------------------------------------------------");
+
 	if (Game:GetProperty("BBS_INIT_COUNT") == nil) then
 		Game:SetProperty("BBS_INIT_COUNT",1)
 		else
@@ -269,8 +281,8 @@ function Init_D_Balance()
 		print ("Init: ", Game:GetProperty("BBS_INIT_COUNT")," times. Turn: ", Game.GetCurrentGameTurn())
 	end		
 
-	
 end
+
 
 --LuaEvents.UIOnLocalPlayerHidePlotsEvent.Add( OnLocalPlayerHidePlots )
 --LuaEvents.UIOnLocalPlayerRevealPlotsEvent.Add( OnLocalPlayerRevealPlots )
