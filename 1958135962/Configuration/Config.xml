@@ -16,7 +16,7 @@
 		<!--<Row ParameterId="BalancingTypeThree" Name="I18N_BALANCING_TYPE_3_NAME" Description="I18N_BALANCING_TYPE_3_DESC" Domain="BalancingTypeThreeRange" DefaultValue="1" ConfigurationGroup="Game" ConfigurationId="BalancingTypeThree" GroupId="AdvancedOptions" Hash="0" SortIndex="2903" /> Obsolete, Permanently set to 1-->
 		<Row ParameterId="Debug_No_Balancing" Name="DEBUG_NAME" Description="DEBUG_DESC" Domain="bool" DefaultValue="0" ConfigurationGroup="Game" ConfigurationId="DEBUG_BALANCING" GroupId="AdvancedOptions" Visible="0" Hash="0" SortIndex="2900" />
 		<Row ParameterId="BBS_RIDGES" Name="LOC_GAME_BBS_RIDGE_NAME" Description="LOC_GAME_BBS_RIDGE_DESC" Domain="RidgeDomain" DefaultValue="0" ConfigurationGroup="Map" ConfigurationId="BBSRidge" GroupId="MapOptions" SortIndex="231" />
-		<Row ParameterId="BBS_SRESOURCES" Name="LOC_GAME_BBS_SRESOURCES_NAME" Description="LOC_GAME_BBS_SRESOURCES_DESC" Domain="StratResDomain" DefaultValue="0" ConfigurationGroup="Map" ConfigurationId="BBSStratRes" GroupId="MapOptions" SupportsSinglePlayer="0" SortIndex="230" />
+		<Row ParameterId="BBS_SRESOURCES" Name="LOC_GAME_BBS_SRESOURCES_NAME" Description="LOC_GAME_BBS_SRESOURCES_DESC" Domain="StratResDomain" DefaultValue="0" ConfigurationGroup="Map" ConfigurationId="BBSStratRes" GroupId="MapOptions" SupportsSinglePlayer="1" SortIndex="230" />
 		<Row ParameterId="BBS_Team_Spawn" Name="LOC_BBS_Team_Spawn_NAME" Description="LOC_BBS_Team_Spawn_DESC" Domain="TeamersDomain" DefaultValue="0" ConfigurationGroup="Map" ConfigurationId="BBS_Team_Spawn" GroupId="MapOptions" Visible="1" SortIndex="233"/>
 		<!--  Name to allow the script to obtain the correct map settings -->
 		<Row Key1="Map" Key2="Archipelago.lua" ParameterId="ArchipelagoMapName" 		Name="MapName" Description="" Domain="text" DefaultValue="Archipelago" 		ConfigurationGroup="Map" ConfigurationId="MapName" GroupId="MapOptions" Visible="0" SortIndex="2010"/>
@@ -224,12 +224,12 @@
 
 	<MapSizes>
 		<!-- Standard Map Sizes -->
-		<Replace MapSizeType="MAPSIZE_DUEL" Name="LOC_MAPSIZE_DUEL_NAME" Description="LOC_MAPSIZE_DUEL_DESCRIPTION" MinPlayers="2" MaxPlayers="8" DefaultPlayers="2" MinCityStates="0" MaxCityStates="6" DefaultCityStates="3" SortIndex="10" />
+		<Replace MapSizeType="MAPSIZE_DUEL" Name="LOC_MAPSIZE_DUEL_NAME" Description="LOC_MAPSIZE_DUEL_DESCRIPTION" MinPlayers="2" MaxPlayers="8" DefaultPlayers="2" MinCityStates="0" MaxCityStates="6" DefaultCityStates="3"  SortIndex="10" />
 		<Replace MapSizeType="MAPSIZE_TINY" Name="LOC_MAPSIZE_TINY_NAME" Description="LOC_MAPSIZE_TINY_DESCRIPTION" MinPlayers="2" MaxPlayers="16" DefaultPlayers="4" MinCityStates="0" MaxCityStates="10" DefaultCityStates="6" SortIndex="20" />
 		<Replace MapSizeType="MAPSIZE_SMALL" Name="LOC_MAPSIZE_SMALL_NAME" Description="LOC_MAPSIZE_SMALL_DESCRIPTION" MinPlayers="2" MaxPlayers="24" DefaultPlayers="6" MinCityStates="0" MaxCityStates="14" DefaultCityStates="9" SortIndex="30" />
-		<Replace MapSizeType="MAPSIZE_STANDARD" Name="LOC_MAPSIZE_STANDARD_NAME" Description="LOC_MAPSIZE_STANDARD_DESCRIPTION" MinPlayers="2" MaxPlayers="32" DefaultPlayers="8" MinCityStates="0" MaxCityStates="18" DefaultCityStates="12" SortIndex="40" />
-		<Replace MapSizeType="MAPSIZE_LARGE" Name="LOC_MAPSIZE_LARGE_NAME" Description="LOC_MAPSIZE_LARGE_DESCRIPTION" MinPlayers="2" MaxPlayers="40" DefaultPlayers="10" MinCityStates="0" MaxCityStates="22" DefaultCityStates="15" SortIndex="50" />
-		<Replace MapSizeType="MAPSIZE_HUGE" Name="LOC_MAPSIZE_HUGE_NAME" Description="LOC_MAPSIZE_HUGE_DESCRIPTION" MinPlayers="2" MaxPlayers="62" DefaultPlayers="12" MinCityStates="0" MaxCityStates="24" DefaultCityStates="18" SortIndex="60" />
-		<Replace MapSizeType="MAPSIZE_ENORMOUS" 	Name="LOC_MAPSIZE_ENORMOUS_NAME" Description="LOC_MAPSIZE_ENORMOUS_DESCRIPTION" MinPlayers="2" MaxPlayers="62" DefaultPlayers="16" MinCityStates="0" MaxCityStates="60" DefaultCityStates="24" SortIndex="70" />			
+		<Replace MapSizeType="MAPSIZE_STANDARD" Name="LOC_MAPSIZE_STANDARD_NAME" Description="LOC_MAPSIZE_STANDARD_DESCRIPTION" MinPlayers="2" MaxPlayers="32" DefaultPlayers="8" MinCityStates="0" MaxCityStates="18" DefaultCityStates="12" SupportsPlayByCloud="1" SortIndex="40" />
+		<Replace MapSizeType="MAPSIZE_LARGE" Name="LOC_MAPSIZE_LARGE_NAME" Description="LOC_MAPSIZE_LARGE_DESCRIPTION" MinPlayers="2" MaxPlayers="40" DefaultPlayers="10" MinCityStates="0" MaxCityStates="22" DefaultCityStates="15" SupportsPlayByCloud="1" SortIndex="50" />
+		<Replace MapSizeType="MAPSIZE_HUGE" Name="LOC_MAPSIZE_HUGE_NAME" Description="LOC_MAPSIZE_HUGE_DESCRIPTION" MinPlayers="2" MaxPlayers="62" DefaultPlayers="12" MinCityStates="0" MaxCityStates="24" DefaultCityStates="18" SupportsPlayByCloud="1" SortIndex="60" />
+		<Replace MapSizeType="MAPSIZE_ENORMOUS" 	Name="LOC_MAPSIZE_ENORMOUS_NAME" Description="LOC_MAPSIZE_ENORMOUS_DESCRIPTION" MinPlayers="2" MaxPlayers="62" DefaultPlayers="16" MinCityStates="0" MaxCityStates="60" DefaultCityStates="24" SupportsPlayByCloud="1" SortIndex="70" />			
 	</MapSizes>
 </GameInfo>
