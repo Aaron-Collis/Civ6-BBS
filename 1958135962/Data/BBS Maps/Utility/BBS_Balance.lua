@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
---	FILE:	 BBS_Balance.lua 1.4.1
+--	FILE:	 BBS_Balance.lua 1.4.2
 --	AUTHOR:  D. / Jack The Narrator
 --	PURPOSE: Rebalance the map spawn post placement 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,8 +117,8 @@ function BBS_Script()
 				minFood = minFood + resourcesConfig;
 				elseif (resourcesConfig == 3) then
 				iBalancingTwo = 1;
-				minFood = minFood + 3;	
-				minProd = minProd + 3;
+				minFood = minFood + 4;	
+				minProd = minProd + 4;
 				else
 				minFood = 9;
 			end
@@ -508,7 +508,7 @@ function BBS_Script()
 		for i = 1, major_count do
 			-- Added Spectator mod handling if a major player isn't detected
 			if (majList[i] ~= nil) then
-				if(majList[i].leader ~= "LEADER_SPECTATOR" and PlayerConfigurations[i]:GetHandicapTypeID() ~= 2021024770) then
+				if(majList[i].leader ~= "LEADER_SPECTATOR" and majList[i].leader ~= "LEADER_AMBIORIX") then
 					if (Map.GetPlot(majList[i].plotX,majList[i].plotY):IsCoastalLand() == true) then
 						-- Check for Coastal Start
 						__Debug("Coastal Terraforming Start X: ", majList[i].plotX, "Start Y: ", majList[i].plotY, "Player: ",i," ",majList[i].leader, majList[i].civ);

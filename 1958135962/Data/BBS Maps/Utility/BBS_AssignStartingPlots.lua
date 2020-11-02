@@ -794,14 +794,21 @@ function BBS_AssignStartingPlots:__RateBiasPlots(biases, startPlots, major, regi
                         foundBiasToundra = true;
                     end
                 elseif (bias.Type == "FEATURES") then
-                    ratedPlot.Score = ratedPlot.Score + 25 + self:__ScoreAdjacent(self:__CountAdjacentFeaturesInRange(ratedPlot.Plot, bias.Value, major), bias.Tier);
+                    ratedPlot.Score = ratedPlot.Score + self:__ScoreAdjacent(self:__CountAdjacentFeaturesInRange(ratedPlot.Plot, bias.Value, major), bias.Tier);
 					if (bias.Value == g_FEATURE_FLOODPLAINS or bias.Value == g_FEATURE_FLOODPLAINS_PLAINS or bias.Value == g_FEATURE_FLOODPLAINS_GRASSLAND) then
                         foundBiasFloodPlains = true;
                     end
                 elseif (bias.Type == "RIVERS" and ratedPlot.Plot:IsRiver()) then
                     ratedPlot.Score = ratedPlot.Score + 100 + self:__ScoreAdjacent(1, bias.Tier);
                 elseif (bias.Type == "RESOURCES") then
-                    ratedPlot.Score = ratedPlot.Score + 25 + self:__ScoreAdjacent(self:__CountAdjacentResourcesInRange(ratedPlot.Plot, bias.Value, major), bias.Tier);
+					local tmp = self:__ScoreAdjacent(self:__CountAdjacentResourcesInRange(ratedPlot.Plot, bias.Value, major, 1), bias.Tier)
+					local tmp_2 = self:__ScoreAdjacent(self:__CountAdjacentResourcesInRange(ratedPlot.Plot, bias.Value, major, 2), bias.Tier)
+					if tmp ~= nil then
+						ratedPlot.Score = ratedPlot.Score + tmp * 6
+					end
+					if tmp_2 ~= nil then
+						ratedPlot.Score = ratedPlot.Score + tmp * 2.5
+					end
                 end
             end
         end
@@ -836,7 +843,7 @@ function BBS_AssignStartingPlots:__RateBiasPlots(biases, startPlots, major, regi
 				end	
 			end
 			if ratedPlot.Plot:IsRiver() then
-				ratedPlot.Score = ratedPlot.Score + 25
+				ratedPlot.Score = ratedPlot.Score + 50
 				if foundBiasCoast == false then
 				ratedPlot.Score = ratedPlot.Score + 25
 				end
@@ -917,6 +924,33 @@ function BBS_AssignStartingPlots:__RateBiasPlots(biases, startPlots, major, regi
 					ratedPlot.Score = ratedPlot.Score - 500
 					elseif(plot:GetY() <= min + 2 or plot:GetY() > gridHeight - max - 2) then 
 					ratedPlot.Score = ratedPlot.Score - 75
+				end	
+			end
+			
+			if MapConfiguration.GetValue("MAP_SCRIPT") ~= "Tilted_Axis.lua" and (civilizationType == "CIVILIZATION_RUSSIA" or civilizationType == "CIVILIZATION_CANADA") then
+			    local max = 0;
+				local min = 0;
+				if Map.GetMapSize() == 4 then
+					max = 12 -- math.ceil(0.5*gridHeight * self.uiStartMaxY / 100);
+					min = 12 -- math.ceil(0.5*gridHeight * self.uiStartMinY / 100);
+					elseif Map.GetMapSize() == 5 then
+					max = 14
+					min = 14
+					elseif Map.GetMapSize() == 3 then
+					max = 10
+					min = 10	
+					else
+					max = 8
+					min = 8
+				end	
+
+
+				if(plot:GetY() <= min or plot:GetY() > gridHeight - max) then
+					ratedPlot.Score = ratedPlot.Score + 500
+					elseif(plot:GetY() >= min + 1 or plot:GetY() < gridHeight - max - 1) then 
+					ratedPlot.Score = ratedPlot.Score
+					elseif(plot:GetY() >= min + 2 or plot:GetY() < gridHeight - max - 2) then 
+					ratedPlot.Score = ratedPlot.Score - 500
 				end	
 			end
 			
@@ -1012,10 +1046,7 @@ function BBS_AssignStartingPlots:__RateBiasPlots(biases, startPlots, major, regi
 		end
 
 		if (plot:IsFreshWater() == true and civilizationType ~= "CIVILIZATION_MAYA") then
-			ratedPlot.Score = ratedPlot.Score + 75;
-			if foundBiasCoast == false then
-				ratedPlot.Score = ratedPlot.Score + 25;
-			end
+			ratedPlot.Score = ratedPlot.Score + 25;
 		end
 		if Players[iPlayer] ~= nil then
 			if self:__MajorCivBuffer(plot,Players[iPlayer]:GetTeam()) == false then
@@ -1242,10 +1273,13 @@ function BBS_AssignStartingPlots:__CountAdjacentContinentsInRange(plot, major)
     return count;
 end
 ------------------------------------------------------------------------------
-function BBS_AssignStartingPlots:__CountAdjacentResourcesInRange(plot, resourceType, major)
+function BBS_AssignStartingPlots:__CountAdjacentResourcesInRange(plot, resourceType, major, range)
     local count = 0;
     local plotX = plot:GetX();
     local plotY = plot:GetY();
+	if range == nil then
+		range = 2
+	end
     if(not major) then
         for dir = 0, DirectionTypes.NUM_DIRECTION_TYPES - 1, 1 do
             local adjacentPlot = Map.GetAdjacentPlot(plotX, plotY, dir);
@@ -1254,9 +1288,9 @@ function BBS_AssignStartingPlots:__CountAdjacentResourcesInRange(plot, resourceT
             end
         end
     else
-        for dx = -2, 2, 1 do
-            for dy = -2, 2, 1 do
-                local adjacentPlot = Map.GetPlotXYWithRangeCheck(plotX, plotY, dx, dy, 2);
+        for dx = -range, range, 1 do
+            for dy = -range, range, 1 do
+                local adjacentPlot = Map.GetPlotXYWithRangeCheck(plotX, plotY, dx, dy, range);
                 if(adjacentPlot ~= nil and adjacentPlot:GetResourceType() == resourceType) then
                     count = count + 1;
                 end
